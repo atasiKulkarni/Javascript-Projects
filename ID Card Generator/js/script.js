@@ -1,18 +1,3 @@
-const downloadCharacterSheet = () => {
-  
-  const node = document.getElementById('id-card');
-  
-  html2canvas(node).then(canvas => {
-    // document.body.appendChild(canvas)
-    // var img    = canvas.toDataURL("image/png");
-    // document.write('<img src="'+img+'"/>');
-    var link = document.createElement('a');
-    link.download = 'filename.jpg';
-    link.href = canvas.toDataURL()
-    link.click();
-  });
-  
-};
 
 const bindInputToElement = (inputEl, elementEl) => {
   inputEl.addEventListener('change', () => {
@@ -65,3 +50,41 @@ document.getElementById('mugshot').addEventListener('change', function()
       }
     });
   
+//download page
+setUpDownloadPage();
+
+function setUpDownloadPage() {
+  document.getElementById("download-button").addEventListener("click", function()
+   {
+    html2canvas(document.getElementById("id-card")).then(function(canvas) 
+    {
+      console.log(canvas);
+      simulateDownloadImageClick(canvas.toDataURL(), 'file-name.jpg');
+    });
+  });
+}
+
+function simulateDownloadImageClick(uri, filename) 
+{
+  var link = document.createElement('a');
+  if (typeof link.download !== 'string') 
+  {
+    window.open(uri);
+  } else 
+  {
+    link.href = uri;
+    link.download = filename;
+    accountForFirefox(clickLink, link);
+  }
+}
+
+function clickLink(link) {
+  link.click();
+}
+
+function accountForFirefox(click) { // wrapper function
+  let link = arguments[1];
+  document.body.appendChild(link);
+  click(link);
+  document.body.removeChild(link);
+}
