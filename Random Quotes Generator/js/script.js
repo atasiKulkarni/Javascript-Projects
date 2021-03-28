@@ -82,11 +82,7 @@ function tweetQuote (){
         quoteShortAuthor = author.innerHTML.substr(2).trim(),
         msg ='';
 
-    //are there two tweet buttons? also from http://jsfiddle.net/LEBz8/1/
-    var elem = document.getElementById('twitterbutton');
-    if (elem !== null) {
-        elem.parentNode.removeChild(elem);
-    }
+  
 
     //cut the message to fit the 140 length + leave some extra
     if(quoteShort.length + quoteShortAuthor.length <= 90){
@@ -94,33 +90,7 @@ function tweetQuote (){
     }else {
         msg = '"'+ quoteShort.substr(0, 65) + '[...]" by ' + quoteShortAuthor;
     }
-
-    
-
-    //make a new twitter button to dynamically generate stuff http://jsfiddle.net/LEBz8/1/
-    var link = document.createElement('a');
-
-    //set attributes for new button
-    link.setAttribute('href', 'https://twitter.com/share');
-    link.setAttribute('class', 'twitter-share-button');
-    link.setAttribute('id', 'tweet');
-    link.setAttribute('data-text', msg);
-    link.setAttribute('data-via', 'littleblacksmth');
-    link.setAttribute('data-size', 'large');
-
-    
 }
-
-! function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-        p = /^http:/.test(d.location) ? 'http' : 'https';
-    if (!d.getElementById(id)) {
-        js = d.createElement(s);
-        js.id = id;
-        js.src = p + '://platform.twitter.com/widgets.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }
-}(document, 'script', 'twitter-wjs');
 
 
 // Chnage background color
